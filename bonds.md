@@ -71,3 +71,26 @@ By focusing on these relationships, your GraphRAG will be able to answer complex
 "Show me all INR denominated bonds with a AAA rating that were issued by Indian companies in the Automotive sector and are guaranteed by their parent company."
 
 This query would require multiple JOINs and subqueries in SQL but is a straightforward traversal in a graph, making it ideal for retrieval.
+
+
+
+# Step 1: Graph Data Modeling (The Blueprint)
+This is the most critical step. You must decide how your relational tables will become a graph. Don't skip this.
+
+Identify Nodes: Tables that represent core entities become node labels.
+
+Bonds table → Bond nodes.
+
+Issuers table → Issuer nodes.
+
+Exchanges table → Exchange nodes.
+
+Identify Properties: Columns in your tables become properties on the nodes.
+
+The CUSIP and MaturityDate columns in the Bonds table become properties on each Bond node.
+
+Identify Relationships: Foreign key constraints and join tables are your blueprint for creating relationships (edges).
+
+A foreign key from the Bonds table to the Issuers table becomes an [:ISSUES] relationship: (Issuer)-[:ISSUES]->(Bond).
+
+A join table linking instruments and indices becomes an [:IS_INCLUDED_IN] relationship.
